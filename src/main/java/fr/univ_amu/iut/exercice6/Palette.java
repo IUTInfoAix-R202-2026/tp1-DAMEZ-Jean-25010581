@@ -1,6 +1,12 @@
 package fr.univ_amu.iut.exercice6;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -60,6 +66,59 @@ public class Palette extends Application {
     // 6. Attention au format du texte du label : les tests vérifient la
     //    présence exacte des substrings "Rouge: 2", "Vert: 0", "Bleu: 1"
     //    après une séquence de clics.
+    BorderPane root = new BorderPane();
+
+    int[] rouge = {0};
+    int[] vert = {0};
+    int[] bleu = {0};
+
+    HBox boutons = new HBox();
+
+    Button btnRouge = new Button("Rouge");
+    btnRouge.setId("btn-rouge");
+
+    Button btnVert = new Button("Vert");
+    btnVert.setId("btn-vert");
+
+    Button btnBleu = new Button("Bleu");
+    btnBleu.setId("btn-bleu");
+
+    boutons.getChildren().addAll(btnRouge, btnVert, btnBleu);
+    root.setTop(boutons);
+
+    Pane zone = new Pane();
+    zone.setId("zone");
+    zone.setMinSize(300, 200);
+    root.setCenter(zone);
+
+    Label compteurs = new Label("Rouge: 0  Vert: 0  Bleu: 0");
+    compteurs.setId("compteurs");
+    root.setBottom(compteurs);
+
+    btnRouge.setOnAction(
+        e -> {
+          rouge[0]++;
+          zone.setStyle("-fx-background-color: red;");
+          compteurs.setText("Rouge: " + rouge[0] + "  Vert: " + vert[0] + "  Bleu: " + bleu[0]);
+        });
+
+    btnVert.setOnAction(
+        e -> {
+          vert[0]++;
+          zone.setStyle("-fx-background-color: green;");
+          compteurs.setText("Rouge: " + rouge[0] + "  Vert: " + vert[0] + "  Bleu: " + bleu[0]);
+        });
+
+    btnBleu.setOnAction(
+        e -> {
+          bleu[0]++;
+          zone.setStyle("-fx-background-color: blue;");
+          compteurs.setText("Rouge: " + rouge[0] + "  Vert: " + vert[0] + "  Bleu: " + bleu[0]);
+        });
+
+    Scene scene = new Scene(root);
+    primaryStage.setScene(scene);
+    primaryStage.show();
   }
 
   public static void main(String[] args) {
